@@ -7,10 +7,8 @@ fun main() {
         val pattern = Regex("(\\d+)\\s*(red|green|blue)")
 
         for ((index, s) in input.withIndex()) {
-            var ok = true
-            val sets = s.split(";")
-            for (curSet in sets) {
-                val m = pattern.findAll(curSet).map { match ->
+            val ok = s.split(";").all {
+                val m = pattern.findAll(it).map { match ->
                     val (value, color) = match.destructured
                     color to value.toInt()
                 }.toMap()
@@ -18,10 +16,7 @@ fun main() {
                 val r = m["red"] ?: 0
                 val g = m["green"] ?: 0
 
-                if (b > maxB || r > maxR || g > maxG) {
-                    ok = false
-                    break
-                }
+                b <= maxB && r <= maxR && g <= maxG
             }
             sum += if(ok) index+1 else 0
         }
