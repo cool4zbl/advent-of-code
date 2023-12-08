@@ -9,6 +9,7 @@ fun main() {
     fun formatFunc(toReplace: String): String {
         return listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
             .foldIndexed(toReplace) { index, acc, s ->
+                // eighthree -> eight8eighthree -> eight8eighthree3three
                 acc.replace(s, "$s${index + 1}$s")
             }
     }
