@@ -1,7 +1,6 @@
 fun main() {
-    val regex = """[a-zA-Z]""".toRegex()
-
     fun part1(input: List<String>): Int {
+        val regex = """[a-zA-Z]""".toRegex()
         return input.map{ regex.replace(it, "") }
             .map { "${it[0]}${it[it.length - 1]}" }
             .sumOf { it.toInt() }
