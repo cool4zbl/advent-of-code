@@ -1,20 +1,4 @@
 fun main() {
-    fun generatePascalTriangles(rows: Int): List<List<Int>> {
-        val triangles = ArrayList<List<Int>>()
-
-        for (row in 0 until rows) {
-            val rowList = ArrayList<Int>()
-            var number = 1
-
-            for (col in 0..row) {
-                rowList.add(number)
-                number = number * (row - col) / (col + 1)
-            }
-            triangles.add(rowList)
-        }
-        return triangles
-    }
-
     fun process(rowList: List<Int>): Int {
         val arr = ArrayList<List<Int>>()
         var lst = rowList
@@ -37,12 +21,17 @@ fun main() {
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        return input.map { it ->
+            process(it.split(" ").map { it.toInt() }.reversed())
+        }.sumOf { it }
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("Day09_test")
     check(part1(testInput) == 114)
+
+    val testInput2 = readInput("Day09_test")
+    check(part2(testInput2) == 2)
 
     val input = readInput("Day09")
     part1(input).println()
