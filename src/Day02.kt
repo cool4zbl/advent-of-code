@@ -10,7 +10,7 @@ fun main() {
     fun part1(input: List<String>, maxR: Int, maxG: Int, maxB: Int): Int {
         var sum = 0
 
-        input.withIndex().map {(index, s) ->
+        input.mapIndexed { index, s ->
             val ok = s.split(";").all {
                 val m = matchColor(it)
                 val b = m["blue"] ?: 0
