@@ -1,7 +1,7 @@
 fun main() {
     fun matchColor(it: String): Map<String, Int> {
         val pattern = Regex("(\\d+)\\s*(red|green|blue)")
-        return  pattern.findAll(it).map { match ->
+        return pattern.findAll(it).map { match ->
             val (value, color) = match.destructured
             color to value.toInt()
         }.toMap()
