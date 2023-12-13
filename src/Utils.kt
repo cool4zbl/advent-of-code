@@ -50,3 +50,6 @@ fun greater(a: String, b: String): Boolean {
     return s.count { it != 0 } > 0 && carry >= 0
 }
 
+typealias CharArray2 = Array<CharArray>
+
+fun List<String>.toCharArray2() = Array(size) { get(it).toCharArray() }
