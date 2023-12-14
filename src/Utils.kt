@@ -20,6 +20,21 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  */
 fun Any?.println() = println(this)
 
+typealias CharArray2 = Array<CharArray>
+
+/**
+ * (Row, Column) coordinate in 2D grid.
+ */
+data class P2(val i: Int, val j: Int)
+
+fun List<String>.toCharArray2() = Array(size) { get(it).toCharArray() }
+fun CharArray2.size2(): P2 {
+    val n = size
+    val m = get(0).size
+    for (i in 1..<n) require(get(i).size == m) { "Row $i has size ${get(i)}, but expected $m"}
+    return P2(n, m)
+}
+
 fun print2DList(arr: List<List<String>>) {
     arr.forEach { row ->
         println(row.joinToString(", "))
@@ -50,6 +65,4 @@ fun greater(a: String, b: String): Boolean {
     return s.count { it != 0 } > 0 && carry >= 0
 }
 
-typealias CharArray2 = Array<CharArray>
 
-fun List<String>.toCharArray2() = Array(size) { get(it).toCharArray() }

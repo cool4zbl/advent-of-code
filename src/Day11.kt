@@ -1,13 +1,14 @@
 import kotlin.math.abs
 
 fun main() {
-    val space = "."
+    val space = '.'
 
     fun part1(input: List<String>, factor: Int = 2): Long {
-        val arr = input.map { it.map { c -> c.toString() } }.toMutableList()
+        val arr = input.toCharArray2()
+        val (m, n) = arr.size2()
 
         val spaceRows = mutableListOf<Int>()
-        for (i in arr.indices) {
+        for (i in 0..<m) {
             if (arr[i].all { it == space }) {
                 spaceRows.add(i)
             }
@@ -15,7 +16,7 @@ fun main() {
 
         val starsPos = mutableListOf<List<Int>>()
         val spaceCols = mutableListOf<Int>()
-        for (j in 0 until arr[0].size) {
+        for (j in 0..<n) {
             var isSpace = true
             for (i in arr.indices) {
                 if (arr[i][j] != space) {
@@ -28,7 +29,7 @@ fun main() {
             }
         }
 
-        var sum = 0.toLong()
+        var sum = 0L
         for (p in 0 until starsPos.size) {
             for (q in (p+1) until starsPos.size) {
                 val x1 = starsPos[p][0]
@@ -62,7 +63,7 @@ fun main() {
     check(part1(testInput) == 374L)
     val r = part2(testInput)
     println(r)
-    check(r == 8410L)
+    check(r == 82000210L)
 
     val input = readInput("input/Day11")
     part1(input).println()

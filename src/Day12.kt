@@ -18,11 +18,6 @@ fun main() {
 
         while (queue.peek().indexOf('?') != -1) {
             val current = queue.remove()
-//            if (m[String(current)]?.isNotEmpty() == true) {
-//                m[String(current)]!!.forEach {
-//                    queue.add(StringBuilder(it))
-//                }
-//            }
             val index = current.indexOf('?')
             queue.add(StringBuilder(current).apply { setCharAt(index, '#') })
             queue.add(StringBuilder(current).apply { setCharAt(index, '.') })
@@ -31,8 +26,6 @@ fun main() {
         m[s] = queue.map { it.toString() }
         return queue.map { it.toString() }
     }
-
-
 
     // generate `???` with `#` & `.`
     fun combination(ans: MutableList<String>, s: String) {
@@ -48,8 +41,8 @@ fun main() {
     fun part1(input: List<String>): Long {
         val records = mutableListOf<List<Int>>()
         val conds = mutableListOf<String>()
-        input.map { it.split(" ") }.map { row ->
-            val (str, ns) = row
+        input.map { ss ->
+            val (str, ns) = ss.split(" ")
 
             conds.add(str)
             records.add(ns.split(",").map {
