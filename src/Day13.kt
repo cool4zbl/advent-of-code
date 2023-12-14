@@ -1,23 +1,31 @@
+//--- Day 13: Point of Incidence ---
+
 fun main() {
     val day = "13"
 
-    fun checkMatch(arr: CharArray2, i: Int, j: Int): Int {
-        var p = i
-        var q = j
-        while (p >= 0 && q < arr.size) {
-            if (arr[p].joinToString("") != arr[q].joinToString("")) {
-                return -1
+    fun find(arr: CharArray2): Long {
+        val (m, n) = arr.size2()
+
+        for (k in 1..<n) {
+            var ok = true
+            for (i in 0..<m) {
+                for (j in 0..<minOf(n-k, k)) {
+                    // offset `j` to `k`
+                    // (k-j-1) .. k-1, k, .., (k+j)
+                    if (arr[i][k-j-1] != arr[i][k+j]) {
+                        ok = false
+                        break
+                    }
+                }
             }
-            p--
-            q++
+            if (ok) return k.toLong()
         }
         return 0
     }
 
     fun process(arr: CharArray2): Long {
-//        var sum = 0L
         val (m, n) = arr.size2()
-        // vertical
+//         vertical
         for (k in 1..<n) {
             var ok = true
             for (i in 0..<m) {
@@ -72,11 +80,30 @@ fun main() {
     }
 
     fun part1(input: List<String>): Long {
-        return readGroupsFromFile(input).sumOf { process(it.toCharArray2()) }
+        return readGroupsFromFile(input).sumOf {
+            find(it.toCharArray2()) + find(transpose(it.toCharArray2())) * 100 }
     }
 
-    fun part2(input: List<String>): Int {
-        return input.size
+    fun find2(arr: CharArray2): Long {
+        val (m, n) = arr.size2()
+        for (k in 1..<m) {
+            var diff = 0
+            for (i in 0..<minOf(m-k, k)) {
+                for (j in 0..<n) {
+                      if (arr[k-i-1][j] != arr[k+i][j]) {
+                        diff += 1
+                    }
+                }
+            }
+            if (diff == 1) {
+                return k.toLong()
+            }
+        }
+        return 0L
+    }
+
+    fun part2(input: List<String>): Long {
+        return readGroupsFromFile(input).sumOf { find2(it.toCharArray2()) * 100 + find2(transpose(it.toCharArray2())) }
     }
 
     // test if implementation meets criteria from the description, like:
@@ -85,9 +112,9 @@ fun main() {
     println(r)
     check( r == 405L)
 
-    check(part2(testInput) == 400)
+    check(part2(testInput) == 400L)
 
     val input = readInput("input/Day${day}")
     part1(input).println()
-//    part2(input).println()
+    part2(input).println()
 }

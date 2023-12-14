@@ -35,6 +35,13 @@ fun CharArray2.size2(): P2 {
     return P2(n, m)
 }
 
+fun transpose(arr: CharArray2): CharArray2 {
+    if (arr.isEmpty() || arr.all { it.isEmpty() }) return arrayOf(charArrayOf())
+    return arr[0].indices.map {
+            col -> arr.map { row -> row[col] }.joinToString("")
+    }.toCharArray2()
+}
+
 fun print2DList(arr: List<List<String>>) {
     arr.forEach { row ->
         println(row.joinToString(", "))
