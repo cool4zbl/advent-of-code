@@ -42,6 +42,10 @@ fun transpose(arr: CharArray2): CharArray2 {
     }.toCharArray2()
 }
 
+fun print2DCharArray(arr: CharArray2) {
+    println(arr.map { c -> println(c ) })
+}
+
 fun print2DList(arr: List<List<String>>) {
     arr.forEach { row ->
         println(row.joinToString(", "))

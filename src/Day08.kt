@@ -62,7 +62,7 @@ fun main() {
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("input/Day08_test")
 //    check(part1(testInput) == 2)
-    check(part2(testInput) == 6.toLong())
+    check(part2(testInput) == 6L)
 
     val input = readInput("input/Day08")
     part1(input).println()
