@@ -46,7 +46,7 @@ fun print2DCharArray(arr: CharArray2) {
     println(arr.map { c -> println(c ) })
 }
 
-fun print2DList(arr: List<List<String>>) {
+fun print2DList(arr: List<Array<Int>>) {
     arr.forEach { row ->
         println(row.joinToString(", "))
     }
