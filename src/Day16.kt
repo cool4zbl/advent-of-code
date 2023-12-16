@@ -11,15 +11,17 @@ fun main() {
         val ls = listOf(3, 2, 1, 0)
         val rs = listOf(1, 0, 3, 2)
 
-        fun genPos(i: Int, j: Int, d: Int): List<Int> {
-            val (di, dj) = DIRS_RDLU()
-            return listOf(i + di[d], j+dj[d])
-        }
-
         val beams: Queue<Pair<List<Int>, Int>> = LinkedList()
         val visited = mutableSetOf<Pair<List<Int>, Int>>()
 
-        beams.add(Pair(listOf(ii, ij), id))
+        fun genPos(i: Int, j: Int, d: Int) {
+            val (di, dj) = DIRS_RDLU()
+
+            beams.add( listOf(i + di[d], j+dj[d]) to d)
+        }
+
+
+        beams.add((listOf(ii, ij) to id))
 
         while (beams.isNotEmpty()) {
             val cur = beams.remove()
@@ -33,29 +35,29 @@ fun main() {
 
             when (arr[i][j]) {
                 '/' -> {
-                    beams.add((genPos(i, j, ls[d]) to ls[d]))
+                    genPos(i, j, ls[d])
                 }
                 '\\' -> {
-                    beams.add(genPos(i, j, rs[d]) to rs[d])
+                    genPos(i, j, rs[d])
                 }
                 '|' -> {
                     // right or left
                     if (d == 0 || d == 2) {
-                        beams.add((genPos(i, j, ls[d]) to ls[d]))
-                        beams.add(genPos(i, j, rs[d]) to rs[d])
+                        genPos(i, j, ls[d])
+                        genPos(i, j, rs[d])
                     } else {
-                        beams.add(genPos(i, j, d) to d)
+                        genPos(i, j, d)
                     }
                 }
                 '-' -> {
                     if (d == 1 || d == 3) {
-                        beams.add(genPos(i, j, ls[d]) to ls[d])
-                        beams.add(genPos(i, j, rs[d]) to rs[d])
+                        genPos(i, j, ls[d])
+                        genPos(i, j, rs[d])
                     } else {
-                        beams.add(genPos(i, j, d) to d)
+                        genPos(i, j, d)
                     }
                 }
-                else -> beams.add(genPos(i, j, d) to d)
+                else -> genPos(i, j, d)
             }
         }
         return visited.map { it.first }.toSet().size
@@ -77,6 +79,7 @@ fun main() {
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("input/Day${day}_test")
     val r = part1(testInput, 0, 0, 0)
+    println(r)
     check(r == 46)
     check(part2(testInput) == 51)
 
