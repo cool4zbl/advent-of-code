@@ -35,6 +35,12 @@ fun CharArray2.size2(): P2 {
     return P2(n, m)
 }
 
+// right, down, left, up
+fun DIRS_RDLU(): Pair<IntArray, IntArray> = Pair(
+    intArrayOf(0, 1, 0, -1),
+    intArrayOf(1, 0, -1, 0),
+)
+
 fun transpose(arr: CharArray2): CharArray2 {
     if (arr.isEmpty() || arr.all { it.isEmpty() }) return arrayOf(charArrayOf())
     return arr[0].indices.map {

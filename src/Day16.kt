@@ -3,107 +3,93 @@ import java.util.*
 fun main() {
     val day = "16"
 
-    fun part1(input: List<String>): Int {
-        val arr = input.toCharArray2()
-        val arr2 = input.toCharArray2()
-        var (m, n) = arr.size2()
+    data class P3(val i:Int, val j: Int, val d: Int)
 
+    fun part1(input: List<String>, ii: Int, ij: Int, id: Int): Int {
+        val arr = input.toCharArray2()
+        val (m, n) = arr.size2()
 
         val a2 = Array(m) { Array(n) {0} }
-        // Left, right, up, down
-        val dir = listOf(
-            mutableListOf(0, -1), mutableListOf(0, 1),
-            mutableListOf(-1, 0), mutableListOf(1, 0),
-        )
+        // d -> di[ls[d]]
+        val ls = listOf(3, 2, 1, 0)
+        val rs = listOf(1, 0, 3, 2)
 
-        val beamPos: Queue<MutableList<MutableList<Int>>> = LinkedList()
-        beamPos.add(mutableListOf(mutableListOf(0, 0), dir[1]))
+        val beams: Queue<P3> = LinkedList()
+        val visited = Array(m) { Array(n) { BooleanArray(4) } }
 
-        fun ls(d: MutableList<Int>, dir: List<MutableList<Int>>): MutableList<Int> {
-            val idx = dir.indexOf(d)
-            return dir[dir.size-1 - idx]
+        fun gen(i: Int, j: Int, d: Int) {
+            val (di, dj) = DIRS_RDLU()
+            val i1 = i + di[d]
+            val j1 = j + dj[d]
+            if (i1 !in 0..<m || j1 !in 0..<n) return
+
+            if (visited[i1][j1][d]) return
+            visited[i1][j1][d] = true
+
+            a2[i1][j1] += 1
+
+            beams.add(P3(i1, j1, d))
         }
-        fun rs(d: MutableList<Int>, dir: List<MutableList<Int>>): MutableList<Int> {
-            val idx = dir.indexOf(d)
-            return dir[(idx + 2) % dir.size]
-        }
-        val DIR = charArrayOf('<', '>', '^', 'v')
 
-//        m=8
-//        n=5
+        gen(ii, ij, id)
 
-        // TODO: figure out how to end loop
-        while (beamPos.isNotEmpty()) {
-            var cur = beamPos.remove()
-            var (p, d) = cur
-            var (i, j) = p
-//            println("i=$i, j=$j, dir=$d")
-            while (i in 0..<m && j in 0..<n) {
-                // TODO:
-                if (a2[i][j] == 0) a2[i][j] += 1
+        while (beams.isNotEmpty()) {
+//            println("$beams")
+            val cur = beams.remove()
+            val (i, j, d) = cur
 
-                when (arr[i][j]) {
-                    '.' -> {
-                        if (DIR.contains(arr2[i][j])) {
-                            arr2[i][j] = '2'
-                        } else {
-                            arr2[i][j] = DIR[dir.indexOf(d)]
-                        }
-                        i += d[0]
-                        j += d[1]
-                    }
-                    '/' -> {
-                        d = ls(d, dir)
-                        i += d[0]
-                        j += d[1]
-                    }
-                    '\\' -> {
-                        d = rs(d, dir)
-                        i += d[0]
-                        j += d[1]
-                    }
-                    '|' -> {
-                        if (d[0] == 0) {
-                            val d0 = ls(d, dir)
-                            val d1 = rs(d, dir)
-                            d = d0
-                            beamPos.add(mutableListOf(mutableListOf(i, j), d1))
-                        }
-                        i += d[0]
-                        j += d[1]
-                    }
-                    '-' -> {
-                        if (d[1] == 0) {
-                            val d0 = ls(d, dir)
-                            val d1 = rs(d, dir)
-                            d = d0
-                            beamPos.add(mutableListOf(mutableListOf(i, j), d1))
-                        }
-                        i += d[0]
-                        j += d[1]
+            when (arr[i][j]) {
+                '/' -> {
+                    gen(i, j, ls[d])
+                }
+                '\\' -> {
+                    gen(i, j, rs[d])
+                }
+                '|' -> {
+                    // right or left
+                    if (d == 0 || d == 2) {
+                        gen(i, j, ls[d])
+                        gen(i, j, rs[d])
+                    } else {
+                        gen(i, j, d)
                     }
                 }
+                '-' -> {
+                    if (d == 1 || d == 3) {
+                        gen(i, j, ls[d])
+                        gen(i, j, rs[d])
+                    } else {
+                        gen(i, j, d)
+                    }
+                }
+                else -> gen(i, j, d)
             }
         }
 
-        print2DList(a2.toList())
-        print2DCharArray(arr2)
-
-        return a2.sumOf { row ->
-            row.count { it == 1 }
-        }
+        return a2.sumOf { row -> row.count { it > 0 } }
 
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val arr = input.toCharArray2()
+        val (m, n) = arr.size2()
+
+        return listOf(
+            (0..n).maxOf { part1(input, -1, it, 1) },
+            (0..n).maxOf { part1(input, m, it, 3) },
+            (0..m).maxOf { part1(input, it, -1, 0) },
+            (0..m).maxOf { part1(input, it, n, 2) },
+        ).max()
+
     }
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("input/Day${day}_test")
-    check(part1(testInput) == 46)
+    val r = part1(testInput, 0, -1, 0)
+    check(r == 46)
+    check(part2(testInput) == 51)
 
     val input = readInput("input/Day${day}")
-    part1(input).println()
+    part1(input, 0, -1, 0).println()
     part2(input).println()
 }
