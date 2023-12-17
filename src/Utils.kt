@@ -61,7 +61,7 @@ fun transpose(arr: CharArray2): CharArray2 {
 }
 
 fun print2DCharArray(arr: CharArray2) {
-    println(arr.map { c -> println(c) })
+    arr.map { c -> println(c) }
 }
 
 fun print2DList(arr: Array<IntArray>) {

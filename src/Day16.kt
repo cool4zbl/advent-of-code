@@ -22,7 +22,6 @@ fun main() {
             beams.add( listOf(i + di[d], j+dj[d]) to d)
         }
 
-
         beams.add((listOf(ii, ij) to id))
 
         while (beams.isNotEmpty()) {
@@ -80,9 +79,7 @@ fun main() {
 
     // test if implementation meets criteria from the description, like:
     val testInput = readInput("input/Day${day}_test")
-    val r = part1(testInput, 0, 0, 0)
-    println(r)
-    check(r == 46)
+    check(part1(testInput, 0, 0, 0) == 46)
     check(part2(testInput) == 51)
 
     val input = readInput("input/Day${day}")
