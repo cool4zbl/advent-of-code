@@ -20,6 +20,7 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  */
 fun Any?.println() = println(this)
 
+typealias IntArray2 = Array<IntArray>
 typealias CharArray2 = Array<CharArray>
 
 /**
@@ -27,7 +28,18 @@ typealias CharArray2 = Array<CharArray>
  */
 data class P2(val i: Int, val j: Int)
 
+fun List<String>.toIntArray2() = Array(size) {
+    get(it).split("").filter { it.isNotBlank() }.map { it.toInt() }.toIntArray() }
+
+fun IntArray2.size2(): P2 {
+    val n = size
+    val m = get(0).size
+    for (i in 1..<n) require(get(i).size == m) { "Row $i has size ${get(i)}, but expected $m"}
+    return P2(n, m)
+}
+
 fun List<String>.toCharArray2() = Array(size) { get(it).toCharArray() }
+
 fun CharArray2.size2(): P2 {
     val n = size
     val m = get(0).size
@@ -49,10 +61,10 @@ fun transpose(arr: CharArray2): CharArray2 {
 }
 
 fun print2DCharArray(arr: CharArray2) {
-    println(arr.map { c -> println(c ) })
+    println(arr.map { c -> println(c) })
 }
 
-fun print2DList(arr: List<Array<Int>>) {
+fun print2DList(arr: Array<IntArray>) {
     arr.forEach { row ->
         println(row.joinToString(", "))
     }

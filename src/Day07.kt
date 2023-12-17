@@ -52,20 +52,7 @@ fun main() {
             m[s] = mutableListOf(bid.toInt())
 
             val gg = groupBySize(s)
-
-            val l = when (gg.keys.max()) {
-                5 -> 6
-                4 -> 5
-                3 -> {
-                    if (gg.containsKey(2)) 4
-                    else 3
-                }
-                2 -> {
-                    if (gg.getValue(2).size == 2) 2
-                    else 1
-                }
-                else -> 0
-            }
+            val l = getLevel(gg)
 
             a[l].add(s)
         }

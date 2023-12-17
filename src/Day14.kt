@@ -24,12 +24,12 @@ fun main() {
                 }
             }
         }
-        println(sum)
 
         return sum
 
     }
 
+    // TODO:
     fun part2(input: List<String>): Int {
         return input.size
     }
