@@ -30,7 +30,7 @@ fun main() {
         val r0 = (ms - sqrt(ms * ms - 4 * dist)) / 2
         val r1 = (ms + sqrt(ms * ms - 4 * dist)) / 2
 
-        return(floor(r1) - ceil(r0)).roundToInt() + 1
+        return (floor(r1) - ceil(r0)).roundToInt() + 1
     }
 
     // test if implementation meets criteria from the description, like:
