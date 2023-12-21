@@ -3,18 +3,9 @@ fun main() {
     val newElement = "."
     val starSymbol = "*"
 
-    fun enlarge2DList(originalList: List<List<String>>, newItem: String = newElement): List<List<String>> {
-        // Add an element at the beginning and end of each row
-        val expandedRows = originalList.map { listOf(newItem) + it + newItem }
-        // Create a new row for top and bottom
-        val newRow = List(expandedRows[0].size) { newItem }
-        // Add the new row at the top and bottom
-        return listOf(newRow) + expandedRows + listOf(newRow)
-    }
-
     fun part1(input: List<String>): Int {
         val originalList = input.map { it.map { c -> c.toString() } }
-        val arr = enlarge2DList(originalList)
+        val arr = enlarge2DList(originalList, newElement)
 
         var sum = 0
         var i = 1
@@ -67,7 +58,7 @@ fun main() {
 
     fun part2(input: List<String>): Int {
         val originalList = input.map { it.map { c -> c.toString() } }
-        val arr = enlarge2DList(originalList)
+        val arr = enlarge2DList(originalList, newElement)
 //        print2DList(arr)
 
         var sum = 0

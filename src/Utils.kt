@@ -95,7 +95,6 @@ fun greater(a: String, b: String): Boolean {
     return s.count { it != 0 } > 0 && carry >= 0
 }
 
-
 fun groupListFromInput(input: List<String>): List<List<String>> {
     val groups = mutableListOf<List<String>>()
     val currentGroup = mutableListOf<String>()
@@ -117,4 +116,13 @@ fun groupListFromInput(input: List<String>): List<List<String>> {
     }
 
     return groups
+}
+
+fun enlarge2DList(originalList: List<List<String>>, newItem: String): List<List<String>> {
+    // Add an element at the beginning and end of each row
+    val expandedRows = originalList.map { listOf(newItem) + it + newItem }
+    // Create a new row for top and bottom
+    val newRow = List(expandedRows[0].size) { newItem }
+    // Add the new row at the top and bottom
+    return listOf(newRow) + expandedRows + listOf(newRow)
 }
