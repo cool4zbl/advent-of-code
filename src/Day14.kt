@@ -51,18 +51,6 @@ fun main() {
 
         return arr
     }
-
-    fun part1(input: List<String>): Int {
-        var arr = input.toCharArray2()
-        arr = north(arr)
-        val (m, n) = arr.size2()
-        var sum = 0
-        for (i in 0..<m) for (j in 0..<n) if (arr[i][j] == 'O') {
-            sum += m - i
-        }
-
-        return sum
-    }
     fun getSum(arr: Array<CharArray>): Int {
         val (m, n) = arr.size2()
         var sum = 0
@@ -70,6 +58,12 @@ fun main() {
             sum += m - i
         }
         return sum
+    }
+
+    fun part1(input: List<String>): Int {
+        var arr = input.toCharArray2()
+        arr = north(arr)
+        return getSum(arr)
     }
 
     fun round(a: Array<CharArray>): Array<CharArray> {

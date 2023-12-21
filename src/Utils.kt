@@ -29,7 +29,8 @@ typealias CharArray2 = Array<CharArray>
 data class P2(val i: Int, val j: Int)
 
 fun List<String>.toIntArray2() = Array(size) {
-    get(it).split("").filter { it.isNotBlank() }.map { it.toInt() }.toIntArray() }
+    it -> get(it).split("").filter { it.isNotBlank() }.map { it.toInt() }.toIntArray()
+}
 
 fun IntArray2.size2(): P2 {
     val n = size
@@ -95,3 +96,25 @@ fun greater(a: String, b: String): Boolean {
 }
 
 
+fun groupListFromInput(input: List<String>): List<List<String>> {
+    val groups = mutableListOf<List<String>>()
+    val currentGroup = mutableListOf<String>()
+
+    input.forEach { line ->
+        if (line.isBlank()) { // Check for an empty line
+            if (currentGroup.isNotEmpty()) {
+                groups.add(currentGroup.toList())
+                currentGroup.clear()
+            }
+        } else {
+            currentGroup.add(line)
+        }
+    }
+
+    // Add the last group if it's not empty
+    if (currentGroup.isNotEmpty()) {
+        groups.add(currentGroup.toList())
+    }
+
+    return groups
+}

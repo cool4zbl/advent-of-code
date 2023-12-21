@@ -64,6 +64,7 @@ fun main() {
         return sum
     }
 
+    // TODO:
     fun part2(input: List<String>): Long {
 
         val records = mutableListOf<List<Int>>()

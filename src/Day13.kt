@@ -56,31 +56,9 @@ fun main() {
         return 0L
 
     }
-    fun readGroupsFromFile(input: List<String>): List<List<String>> {
-        val groups = mutableListOf<List<String>>()
-        val currentGroup = mutableListOf<String>()
-
-        input.forEach { line ->
-            if (line.isBlank()) { // Check for an empty line
-                if (currentGroup.isNotEmpty()) {
-                    groups.add(currentGroup.toList())
-                    currentGroup.clear()
-                }
-            } else {
-                currentGroup.add(line)
-            }
-        }
-
-        // Add the last group if it's not empty
-        if (currentGroup.isNotEmpty()) {
-            groups.add(currentGroup.toList())
-        }
-
-        return groups
-    }
 
     fun part1(input: List<String>): Long {
-        return readGroupsFromFile(input).sumOf {
+        return groupListFromInput(input).sumOf {
             find(it.toCharArray2()) + find(transpose(it.toCharArray2())) * 100 }
     }
 
@@ -103,7 +81,7 @@ fun main() {
     }
 
     fun part2(input: List<String>): Long {
-        return readGroupsFromFile(input).sumOf { find2(it.toCharArray2()) * 100 + find2(transpose(it.toCharArray2())) }
+        return groupListFromInput(input).sumOf { find2(it.toCharArray2()) * 100 + find2(transpose(it.toCharArray2())) }
     }
 
     // test if implementation meets criteria from the description, like:
