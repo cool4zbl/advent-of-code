@@ -62,10 +62,7 @@ fun main() {
             seeds = newRange
         }
 
-        seeds.println()
-        val mm = seeds.minOf { it[0] }
-        mm.println()
-        return mm
+        return seeds.minOf { it[0] }
     }
 
     // test if implementation meets criteria from the description, like:

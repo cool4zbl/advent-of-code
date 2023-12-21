@@ -19,7 +19,7 @@ fun main() {
         fun genPos(i: Int, j: Int, d: Int) {
             val (di, dj) = DIRS_RDLU()
 
-            beams.add( listOf(i + di[d], j+dj[d]) to d)
+            beams.add(listOf(i + di[d], j+dj[d]) to d)
         }
 
         beams.add((listOf(ii, ij) to id))
