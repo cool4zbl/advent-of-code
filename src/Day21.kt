@@ -20,10 +20,10 @@ fun main() {
         while (count < 64) {
             val curLevel = queue.remove()
             val nextLevel = mutableSetOf<Pair<Int, Int>>()
-            curLevel.map {  cur ->
+            curLevel.forEach { cur ->
                 val (i, j) = cur
 
-                (0..3).map {
+                (0..3).forEach {
                     val (xi, xj) = di[it] + i to dj[it] + j
                     if (xi in 0..<m && xj in 0..<n && a[xi][xj] == '.') {
                         nextLevel.add(xi to xj)
@@ -38,7 +38,6 @@ fun main() {
         r.map {
             a[it.first][it.second] = 'O'
         }
-        print2DCharArray(a)
         return r.size
     }
 

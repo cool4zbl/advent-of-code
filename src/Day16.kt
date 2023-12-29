@@ -5,7 +5,7 @@ import java.util.*
 fun main() {
     val day = "16"
 
-    fun part1(input: List<String>, ii: Int, ij: Int, id: Int): Int {
+    fun part1(input: List<String>, ii: Int, ij: Int, dir: Int): Int {
         val arr = input.toCharArray2()
         val (m, n) = arr.size2()
 
@@ -22,7 +22,7 @@ fun main() {
             beams.add(listOf(i + di[d], j+dj[d]) to d)
         }
 
-        beams.add((listOf(ii, ij) to id))
+        beams.add((listOf(ii, ij) to dir))
 
         while (beams.isNotEmpty()) {
             val cur = beams.remove()
@@ -74,7 +74,6 @@ fun main() {
             (0..m).maxOf { part1(input, it, 0, 0) },
             (0..m).maxOf { part1(input, it, n-1, 2) },
         ).max()
-
     }
 
     // test if implementation meets criteria from the description, like:
