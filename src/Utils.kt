@@ -20,13 +20,19 @@ fun String.md5() = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteA
  */
 fun Any?.println() = println(this)
 
-typealias IntArray2 = Array<IntArray>
-typealias CharArray2 = Array<CharArray>
+
+// P: Point in 2D grid
+data class P(val i: Int, val j: Int)
+// Q: P with the direction
+data class Q(val i: Int, val j: Int, val d: Int)
 
 /**
  * (Row, Column) coordinate in 2D grid.
  */
 data class P2(val i: Int, val j: Int)
+
+typealias IntArray2 = Array<IntArray>
+typealias CharArray2 = Array<CharArray>
 
 fun List<String>.toIntArray2() = Array(size) {
     it -> get(it).split("").filter { it.isNotBlank() }.map { it.toInt() }.toIntArray()

@@ -14,9 +14,6 @@ fun main() {
 
         for (i in 0..<m) for(j in 0 ..<n) if (a[i][j] == 'S') { si = i; sj = j }
 
-        data class P(val i: Int, val j: Int)
-        data class Q(val i: Int, val j: Int, val d: Int)
-
         return (0..3).maxOf {
             val queue = ArrayDeque<Q>()
             val visited = mutableSetOf<P>()
@@ -65,9 +62,6 @@ fun main() {
         var (si, sj) = 0 to 0
 
         for (i in 0..<m) for(j in 0 ..<n) if (a[i][j] == 'S') { si = i; sj = j }
-
-        data class P(val i: Int, val j: Int)
-        data class Q(val i: Int, val j: Int, val d: Int)
 
         var loop = mutableSetOf<P>()
         var loopFound = false
